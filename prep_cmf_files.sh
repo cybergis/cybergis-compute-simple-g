@@ -2,6 +2,7 @@
 CURR_CMF_PATH="/simple-g/"
 TMP_LOCATION="./tmp"
 # export result_folder="/anvil/projects/x-ees220011/Iman/SIMPLEG_cyberGIS/output/"
+echo $result_folder
 
 mkdir -p $TMP_LOCATION/cmf/
 
