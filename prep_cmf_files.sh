@@ -9,7 +9,7 @@ readarray -t cmf_files < /simple-g/cmf_list.txt
 touch $TMP_LOCATION/cmf_list.txt
 
 # do the weird double // thing to the path
-CMF_OUT_PATH=$(sed 's#/#//#g' <<<"$result_folder")
+CMF_OUT_PATH=$(sed 's#/#//#g' <<<"${result_folder}/")
 echo "Writing to ${CMF_OUT_PATH}..."
 
 # need to account for full path to the cmf_file later
