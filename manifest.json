@@ -2,7 +2,7 @@
     "name": "SIMPLE-G",
     "container": "simple-g",
     "pre_processing_stage": "bash prep_cmf_files.sh",
-    "execution_stage": "bash run_simpleg.sh",
+    "execution_stage": "cd /simple-g/ && bash /job/executable/run_simpleg.sh",
     "post_processing_stage": "echo ${result_folder}",
     "slurm_input_rules": {
         "time": {
