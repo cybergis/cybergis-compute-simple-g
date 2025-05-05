@@ -1,0 +1,28 @@
+{
+    "name": "SIMPLE-G",
+    "container": "simple-g",
+    "pre_processing_stage": "bash prep_cmf_files.sh",
+    "execution_stage": "bash run_simpleg.sh",
+    "post_processing_stage": "echo ${result_folder}",
+    "slurm_input_rules": {
+        "time": {
+            "max": 60,
+            "min": 10,
+            "default_value": 20,
+            "step": 1,
+            "unit": "Minutes"
+        },
+        "memory": {
+            "max": 16,
+            "min": 8,
+            "default_value": 8,
+            "step": 1,
+            "unit": "GB"
+        }
+    },
+    "require_upload_data": false,
+    "supported_hpc": [
+        "anvil_community"
+    ],
+    "default_hpc": "anvil_community"
+}
