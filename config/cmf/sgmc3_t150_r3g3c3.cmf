@@ -188,4 +188,4 @@ XSubset MDEV is subset of REG ;
 final_level TMcrb_L = uniform 1.0;
 !shock tmcrb = uniform 200;
 
-File model_config = config//config_r3g3c3.har;
+File model_config = //job//data//config_r3g3c3.har;
