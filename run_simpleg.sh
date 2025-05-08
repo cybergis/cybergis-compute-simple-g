@@ -24,7 +24,12 @@ else
   echo "Will analyze ${#har_files_array[@]} HAR files: ${har_files_array[@]}..."
 fi  
 
+# show the contents of data folder for debugging
+echo "Contents of the data folder:"
+ls /job/data/
+
 # before we execute need to be in the directory with the input files
+echo "Changing directories and running SIMPLE-G"
 cd /simple-g/
 for CMF_FILE in "${cmf_files_array[@]}"; do
   echo "Running ${CMF_FILE}..."
