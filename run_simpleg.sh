@@ -4,22 +4,23 @@
 # We then read in all of the provided CMF files and run the simple-g model for each.
 DATA_FOLDER=$data_folder
 
+cd $DATA_FOLDER
 # check for user-provided CMF files
-cmf_files_array=($(find . -name "${DATA_FOLDER}/*.cmf" -print0 | xargs -0))
+cmf_files_array=($(find . -name "*.cmf" -print0 | xargs -0))
 if [[ ${#cmf_files_array[@]} -eq 0 ]]; then
   echo "No CMF file found in ${DATA_FOLDER}, copying default..."
   cp /job/executable/config/cmf/sgmc3_t150_r3g3c3.cmf ${DATA_FOLDER}/
-  cmf_files_array=($(find . -name "${DATA_FOLDER}/*.cmf" -print0 | xargs -0))
+  cmf_files_array=($(find . -name "*.cmf" -print0 | xargs -0))
 else
   echo "Will analyze  ${#cmf_files_array[@]} CMF files: ${cmf_files_array[@]}..."
 fi
 
 # check for user-provided HAR files
-har_files_array=($(find . -name "${DATA_FOLDER}/*.har" -print0 | xargs -0))
+har_files_array=($(find . -name "*.har" -print0 | xargs -0))
 if [[ ${#har_files_array[@]} -eq 0 ]]; then
   echo "No HAR file found in ${DATA_FOLDER}, copying default..."
   cp /job/executable/config/har/config_r3g3c3.har ${DATA_FOLDER}/
-  har_files_array=($(find . -name "${DATA_FOLDER}/*.har" -print0 | xargs -0))
+  har_files_array=($(find . -name "*.har" -print0 | xargs -0))
 else
   echo "Will analyze ${#har_files_array[@]} HAR files: ${har_files_array[@]}..."
 fi  
