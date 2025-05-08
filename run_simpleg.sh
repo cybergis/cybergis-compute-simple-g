@@ -34,5 +34,5 @@ echo "Changing directories and running SIMPLE-G"
 cd /simple-g/
 for CMF_FILE in "${cmf_files_array[@]}"; do
   echo "Running ${CMF_FILE}..."
-  /simpleg/bin/sgmc3_2504/simpleg.exe -cmf $CMF_FILE
+  /simpleg/bin/sgmc3_2504/simpleg.exe -cmf $DATA_FOLDER/$CMF_FILE
 done
