@@ -5,7 +5,7 @@
 DATA_FOLDER=$data_folder
 CONFIG_FOLDER=$executable_folder/configs
 mkdir -p $CONFIG_FOLDER
-cp -r $DATA_FOLDER/* $CONFIG_FOLDER/
+[ -f $DATA_FOLDER ] && cp -r $DATA_FOLDER/* $CONFIG_FOLDER/
 
 cd $CONFIG_FOLDER
 # check for user-provided CMF files
@@ -28,9 +28,9 @@ else
   echo "Will analyze ${#har_files_array[@]} HAR files: ${har_files_array[@]}..."
 fi  
 
-# show the contents of data folder for debugging
-echo "Contents of the data folder:"
-ls /job/data/
+# show the contents of config folder for debugging
+echo "Contents of the config folder:"
+ls $CONFIG_FOLDER
 
 # before we execute need to be in the directory with the input files
 echo "Changing directories and running SIMPLE-G"
