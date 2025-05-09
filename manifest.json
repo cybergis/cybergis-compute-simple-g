@@ -2,6 +2,16 @@
     "name": "SIMPLE-G",
     "container": "simple-g",
     "execution_stage": "bash /job/executable/run_simpleg.sh",
+    "param_rules": {
+        "Model": {
+            "type": "string_option",
+            "options": [
+                "sgmc3_2504",
+                "sgw_a2i3c1_20250305"
+            ],
+            "default_value": "sgmc3_2504"
+        }
+    },
     "slurm_input_rules": {
         "time": {
             "max": 60,
