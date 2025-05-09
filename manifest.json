@@ -28,6 +28,7 @@
             "unit": "GB"
         }
     },
+    "require_upload_data": true,
     "supported_hpc": [
         "anvil_community"
     ],
