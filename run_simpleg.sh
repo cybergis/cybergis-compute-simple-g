@@ -5,7 +5,7 @@
 DATA_FOLDER=$data_folder
 CONFIG_FOLDER=$executable_folder/configs
 mkdir -p $CONFIG_FOLDER
-[ -f $DATA_FOLDER ] && cp -r $DATA_FOLDER/* $CONFIG_FOLDER/
+[ -d $DATA_FOLDER ] && cp -r $DATA_FOLDER/* $CONFIG_FOLDER/
 
 cd $CONFIG_FOLDER
 # check for user-provided CMF files
