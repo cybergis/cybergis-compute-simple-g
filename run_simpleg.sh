@@ -5,7 +5,7 @@
 DATA_FOLDER=$data_folder
 CONFIG_FOLDER=$executable_folder/configs
 mkdir -p $CONFIG_FOLDER
-[ -f $DATA_FOLDER ] && cp -r $DATA_FOLDER/* $CONFIG_FOLDER/
+[ -d $DATA_FOLDER ] && cp -r $DATA_FOLDER/* $CONFIG_FOLDER/
 
 cd $CONFIG_FOLDER
 # check for user-provided CMF files
@@ -37,5 +37,5 @@ echo "Changing directories and running SIMPLE-G"
 cd /simple-g/
 for CMF_FILE in "${cmf_files_array[@]}"; do
   echo "Running ${CMF_FILE}..."
-  /simpleg/bin/sgmc3_2504/simpleg.exe -cmf $CONFIG_FOLDER/$CMF_FILE
+  /simpleg/bin/$param_Model/simpleg.exe -cmf $CONFIG_FOLDER/$CMF_FILE
 done
