@@ -1,0 +1,151 @@
+ ! This Command file
+ ! sgmc3_t150-x.cmf
+ ! was prepared for analysis of food security and tariffs
+ ! 2025-05-15
+
+auxiliary files = simpleg ;
+
+ ! Options
+ ! ------------
+  start with mmnz = 21867;
+  LU decompose transpose = yes ; 
+  cpu = yes ;
+  udc file = yes;
+  slc file = yes;
+
+ ! -------------------
+
+ ! Input files
+ ! ------------
+  File GRIDSETS = in//GRIDSETS_30m.har ; !  set file 
+  File GRIDDATA = in//GRIDDATA_30m.har ; !  base data
+  File GRIDPARM = in//GRIDPARM_30m.har ; !  parameter data
+  File GRIDCROP = in//GRIDCROP_gaez_30m.har ; ! multi-crop data
+
+ !  Food security
+  File LANDDATA = in//LANDDATA.har;
+  File LANDSETS = in//LANDSETS.har ; 
+  File LANDPARM = in//LANDPARM.har ;
+
+  File model_config = //job//executable//configs//config_g2r2.har; ! a file to scale the elasticities
+
+ ! Output files
+ ! ------------
+  LOG file      = //job//result//sgmc3_t150-s1_g2r2.LOG;
+  Solution file = //job//result//sgmc3_t150-s1_g2r2;
+  Updated file GRIDDATA = //job//result//sgmc3_t150-s1_g2r2_data.upd ;
+  Updated file GRIDCROP = //job//result//sgmc3_t150-s1_g2r2_crop.upd ;
+  Updated file LANDDATA = //job//result//sgmc3_t150-s1_g2r2_nutr.upd ;
+
+  condensation information file = //job//result//sgmc3_t150-s1_g2r2-cond.txt;
+
+ ! Closure
+ ! -------
+ ! KEY EXOGENOUS VARIABLES 
+ Exogenous  p_INC_PC    ; !per capita income by inc. reg.
+ Exogenous  p_POP       ; !population by inc. reg.
+ Exogenous  p_QCRPBIOFr ; !crop demand for global biofuel use
+ Exogenous  s_QCRPBIOFr ; !crop demand for biofuel use | alternative
+
+ Exogenous  p_P(NFOOD_COMM,REG) ;!price of non-food commodities by inc. reg.
+ Exogenous  p_PNCRPFEED ; !price of non-feed inputs used in livestock prod.
+ Exogenous  p_PNCRPFOOD ; !price of non-crop inputs used in proc. food prod.
+
+ Exogenous QCROPcs_stk  ; !slack variable for food reserves/stocks
+
+ Exogenous s_QALLr      ; !slack variable for homogeneity tests  
+ Exogenous s_QLANDr     ; !slack variable to control regional land
+
+ Exogenous QCROPcs_fix; !slack variable to control regional crop output
+ Exogenous PCROPcs_fix; !slack variable to control regional crop price
+
+ Exogenous  t_PCROPcrb_imp; !import tax by crop X reg X buyer
+ Exogenous  t_PCROPcrb_loc; !local tax
+ Exogenous  t_PCROPcrb_tot; !consumption tax
+ Exogenous  t_PCROPr_imp  ; !import tax by reg
+
+ Exogenous p_AOCROPr      ; !productivity/efficiency index
+
+ Exogenous s_QTIMBr       ; !slack variable in timber market
+ Exogenous s_QGRAZr       ; !slack variable in pasture/grazing market
+
+ Exogenous s_QWSRF_NATg   ; !slack variable for surface water for nature
+ Exogenous s_QWGRD_NATg   ; !slack variable for groundwater for nature
+
+ Exogenous s_QWATGRDg     ; !slack variable for total surface water 
+ Exogenous s_QWATSRFg     ; !slack variable for total groundwater
+
+
+!********** MODULE SPECIFIC VARIABLES ***************************************************************************
+!            Food Security Module
+Exogenous  CAL_COMM;   ! caloric content of commodity i consumed in region y
+Exogenous  MIN_CAL;    ! minimum caloric consumption per capita in region y
+Endogenous MIN_CALW;   ! minimum caloric consumption per capita (global)
+
+Endogenous QCONS_GRAM; ! food consumption
+Endogenous MAL_COUNT;  ! malnutrition count (inc reg)
+Endogenous MAL_GAP;    ! malnutrition gap (inc reg)
+Endogenous MAL_COUNTW; ! malnutrition count (global)
+Endogenous MAL_GAPW;   ! malnutrition gap (global)
+
+Endogenous CALORIES;   ! total caloric consumption per capita in region y
+Endogenous CALORIESW;  ! total caloric consumption per capita (global)
+Endogenous QPC_GRAM;   ! grams per capita per day of commodity k consumed in region y
+
+Endogenous slack_cal; 
+
+
+! ********** BMI MODULE SPECIFIC VARIABLES ***************************************************************************
+Exogenous  Cohortf ;  ! Cohort specific effect on BMI for women
+Exogenous  Aderf ;    ! Region and age specific average daily energy requirements for women
+Exogenous  AD_FPOP;   ! Women adult population in millions by region and age group
+
+Exogenous  Cohortm;   ! Cohort specific effect on BMI for men
+Exogenous  Aderm;     ! Region and age specific average daily energy requirements for men
+Exogenous  AD_MPOP;   ! Men adult population in millions by region and age group
+
+! **********  OVERACQUISITION OF CALORIES MODULE *************************************************************************
+
+Exogenous  MAX_CAL_f; ! caloric requirements intake for an adult women (region)
+Endogenous MAX_CALW_f;! caloric requirements for an adult women (global)
+Endogenous OV_CNT_f;  ! overacquisition count of adult females  (inc reg)
+Endogenous OV_GP_f;   ! overacquisition gap in adult women (inc reg)
+Endogenous OV_CNTW_f; ! overacquisition count of adult women (global)
+Endogenous OV_GPW_f;  ! overacquisition gap in adult women (global)
+
+Exogenous  MAX_CAL_m; ! caloric requirements intake for an adult men (region)
+Endogenous MAX_CALW_m;! caloric requirements for an adult men (global)
+Endogenous OV_CNT_m;  ! overacquisition count of adult males  (inc reg)
+Endogenous OV_GP_m;   ! overacquisition gap in adult men (inc reg)
+Endogenous OV_CNTW_m; ! overacquisition count of adult men (global)
+Endogenous OV_GPW_m;  ! overacquisition gap in adult men (global)
+
+Exogenous  MIN_CLF;   ! minimum caloric consumption per capita in adult women in region y
+Exogenous  MIN_CLM;   ! minimum caloric consumption per capita in adult men in region y
+
+Exogenous tmcrb; ! tariff rate (%)
+       
+REST Endogenous;
+
+
+ ! Verbal description and solution method
+ ! ------------------
+Verbal Description = <cmf>;
+
+Method = Gragg;
+Steps = 2 4 6;
+subintervals = 1;
+
+
+! ************** !
+! Shocks Section !
+! ************** !
+
+XSet    MDEV # net-importing develping regions#  
+ (E_Euro, N_Afr, SSA, S_Amer, S_Asia, CC_Amer, SE_Asia, CHINA, M_East, C_Asia);
+XSubset MDEV is subset of REG ;
+
+!Swap  s_QALLr(MDEV) = p_MAL_COUNT(MDEV);
+!Swap  p_AOCROPr(MDEV) = p_MAL_COUNT(MDEV);
+
+shock tmcrb = uniform 150;
